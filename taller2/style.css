@@ -1,0 +1,49 @@
+
+/* Estilos para la página */
+html {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 60px;
+    text-align:center;
+    color: #4716cf;
+}
+
+p,li {
+    font-size: 16px;     
+    line-height: 2;      
+    letter-spacing: 1px; 
+
+}
+
+html{
+background-color: hsl(209, 32%, 86%);
+text-align: center;
+font-family: Arial, sans-serif;
+}
+
+body {
+    width: 1600px;
+    margin: 0;
+    background-color: #3D5A80;
+    padding: 0 20px 20px 20px;
+    border: 5px solid #0F1C2E;
+}
+
+img{
+    display: block;
+    margin: 0 auto  ;
+    height: 400px;
+    width: 301px;
+}
+
+td img {
+width: 330px;
+}
+
+.imagen1 {
+    width: 600px;
+}
