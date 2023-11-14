@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+#define NUM_ESTUDIANTES 4
+#define NUM_NOTAS 5
+
+struct Estudiante {
+    char nombre[50];
+    int notas[NUM_NOTAS];
+};
+
+void consultarNotas(struct Estudiante estudiantes[], int estudiante) {
+    if (estudiante < 1 || estudiante > NUM_ESTUDIANTES) {
+        printf("Estudiante no encontrado\n");
+    } else {
+        printf("Notas de %s:\n", estudiantes[estudiante - 1].nombre);
+        for (int i = 0; i < NUM_NOTAS; i++) {
+            printf("Nota %d: %d\n", i + 1, estudiantes[estudiante - 1].notas[i]);
+        }
+    }
+}
+
+void calcularPromedio(struct Estudiante estudiantes[], int estudiante) {
+    if (estudiante < 1 || estudiante > NUM_ESTUDIANTES) {
+        printf("Estudiante no encontrado\n");
+    } else {
+        int suma = 0;
+        for (int i = 0; i < NUM_NOTAS; i++) {
+            suma += estudiantes[estudiante - 1].notas[i];
+        }
+        float promedio = (float) suma / NUM_NOTAS;
+        printf("Promedio de notas de %s: %.2f\n", estudiantes[estudiante - 1].nombre, promedio);
+    }
+}
+
+int main() {
+    struct Estudiante estudiantes[NUM_ESTUDIANTES] = {
+        {"Juan Daniel Torres", {40, 35, 45, 42, 35}},
+        {"Juan Jose Bautista", {37, 42, 48, 45, 30}},
+        {"Loren Tavera", {38, 45, 48, 45, 32}},
+        {"Andres Robles", {.30, 37, 40, 35, 48}}
+    };
+
+    int opcion;
+    int estudiante;
+
+    do {
+        printf("Seleccione una de opciones de consulta:\n");
+        printf("1) Consultar notas del estudiante\n");
+        printf("2) Calcular promedio de notas de un estudiante\n");
+        printf("3) Salir del software de notas\n");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1:
+                printf("Ingrese el número de estudiante (1-%d): ", NUM_ESTUDIANTES);
+                scanf("%d", &estudiante);
+                consultarNotas(estudiantes, estudiante);
+                break;
+            case 2:
+                printf("Ingrese el número de estudiante (1-%d): ", NUM_ESTUDIANTES);
+                scanf("%d", &estudiante);
+                calcularPromedio(estudiantes, estudiante);
+                break;
+            case 3:
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opción inválida\n");
+                break;
+        }
+    } while (opcion != 3);
+
+    return 0;
+}
