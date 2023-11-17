@@ -1,0 +1,116 @@
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+class RutaBus {
+    private String numeroRuta;
+    private List<String> paradas;
+
+    public RutaBus(String numeroRuta) {
+        this.numeroRuta = numeroRuta;
+        this.paradas = new ArrayList<>();
+    }
+
+    public String getNumeroRuta() {
+        return numeroRuta;
+    }
+
+    public void agregarParada(String parada) {
+        paradas.add(parada);
+    }
+
+    public List<String> getParadas() {
+        return Collections.unmodifiableList(paradas);
+    }
+}
+
+class ServicioBus {
+    private Map<String, RutaBus> rutas;
+    private List<String> rutasFeriados;
+
+    public ServicioBus() {
+        rutas = new HashMap<>();
+        rutasFeriados = new ArrayList<>();
+
+        // Agregar algunas rutas y paradas de ejemplo
+        RutaBus ruta1 = new RutaBus("G43");
+        ruta1.agregarParada("Portal Eldorado");
+        ruta1.agregarParada("General Santander");
+        ruta1.agregarParada("San Mateo - Unisur");
+        rutas.put("G43", ruta1);
+
+        RutaBus ruta2 = new RutaBus("B75");
+        ruta2.agregarParada("Portal Del Norte");
+        ruta2.agregarParada("Calle 100 - Marketmedios");
+        rutas.put("B75", ruta2);
+
+        rutasFeriados.add("G43");
+        rutasFeriados.add("B75");
+    }
+
+    public List<String> getParadasPorRuta(String numeroRuta) {
+        RutaBus ruta = rutas.get(numeroRuta);
+        if (ruta == null) {
+            throw new IllegalArgumentException("La ruta " + numeroRuta + " no existe.");
+        }
+        return ruta.getParadas();
+    }
+
+    public List<String> getRutasFeriados() {
+        return Collections.unmodifiableList(rutasFeriados);
+    }
+}
+
+public class ProgramaBus {
+    public static void main(String[] args) {
+        ServicioBus servicioBus = new ServicioBus();
+        Scanner scanner = new Scanner(System.in);
+        char opcion;
+
+        do {
+            System.out.println("Menu:");
+            System.out.println("1. Consultar paradas de una ruta de bus");
+            System.out.println("2. Consultar rutas de bus que funcionan en festivos");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
+            String entrada = scanner.next();
+            
+            if (entrada.length() != 1 || (entrada.charAt(0) < '1' || entrada.charAt(0) > '3')) {
+                System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+                continue;
+            }
+
+            opcion = entrada.charAt(0);
+
+            switch (opcion) {
+                case '1':
+                    System.out.print("Ingrese el número de ruta del bus: ");
+                    String numeroRuta = scanner.next();
+                    try {
+                        List<String> paradas = servicioBus.getParadasPorRuta(numeroRuta);
+                        System.out.println("Paradas de la ruta " + numeroRuta + ":");
+                        for (String parada : paradas) {
+                            System.out.println(parada);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case '2':
+                    List<String> rutasFestivos = servicioBus.getRutasFeriados();
+                    System.out.println("Rutas de bus para días festivos:");
+                    for (String ruta : rutasFeriados) {
+                        System.out.println(ruta);
+                    }
+                    break;
+                case '3':
+                    System.out.println("Gracias por tu consulta");
+                    break;
+            }
+        } while (opcion != '3');
+
+        scanner.close();
+    }
+}
