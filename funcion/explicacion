@@ -1,0 +1,7 @@
+En este ejemplo, he utilizado la sentencia CREATE FUNCTION para crear una función llamada copy_users_to_amigos. La función no toma argumentos y no devuelve nada (RETURNS VOID).
+
+El cuerpo de la función utiliza la sentencia INSERT INTO ... SELECT para insertar datos de la tabla usuarios en la tabla amigos. La cláusula WHERE de la sentencia SELECT utiliza una cláusula NOT EXISTS para garantizar que la función no inserta datos duplicados.
+
+Las palabras clave BEGIN y END definen el principio y el final del cuerpo de la función, y los símbolos $$ indican el principio y el final de la definición de la función. Por último, la cláusula LANGUAGE plpgsql especifica el lenguaje en el que está escrita la función.
+
+Traducción realizada con la versión gratuita del traductor DeepL.com
