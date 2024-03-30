@@ -1,0 +1,11 @@
+CREATE FUNCTION copy_users_to_amigos()
+RETURNS VOID AS $$
+BEGIN
+    INSERT INTO amigos (col1, col2, col3)
+    SELECT u.col1, u.col2, u.col3
+    FROM usuarios u
+    WHERE NOT EXISTS (
+        SELECT 1 FROM amigos a WHERE a.col1 = u.col1
+    );
+END;
+$$ LANGUAGE plpgsql;
